@@ -1,7 +1,7 @@
 package main
 
 func Hello(name string) string {
-	return "Hello, Chris"
+	return "Hello, " + name
 }
 func main () {
 	println(Hello("Any string"))
