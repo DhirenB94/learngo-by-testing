@@ -4,5 +4,5 @@ func Hello(name string) string {
 	return "Hello, world"
 }
 func main () {
-	println(Hello())
+	println(Hello("Any string"))
 }
