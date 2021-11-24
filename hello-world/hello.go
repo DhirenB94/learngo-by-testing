@@ -8,5 +8,5 @@ func Hello(name string) string {
 	return englishHelloPrefix + name
 }
 func main () {
-	println(Hello("Any string"))
+	println(Hello("world"))
 }
