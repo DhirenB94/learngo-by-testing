@@ -8,6 +8,9 @@ func Hello(name string, language string) string {
 	if name == "" {
 		return "Hello, world"
 	}
+	if language == "Spanish" {
+		return "Hola, " + name
+	}
 	return englishHelloPrefix + name
 }
 func main () {
