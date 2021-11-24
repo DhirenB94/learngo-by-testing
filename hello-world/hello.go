@@ -4,7 +4,7 @@ package main
 const englishHelloPrefix = "Hello, "
 
 
-func Hello(name string) string {
+func Hello(name string, language string) string {
 	if name == "" {
 		return "Hello, world"
 	}

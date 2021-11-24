@@ -39,3 +39,6 @@ func TestHello(t *testing.T) {
 // then used this variable instead of repeated if gotwant lines
 //when using t.helper - use testing.TB as this gives access to both testing.T (test) and testing.B (benchmark)
 //t.helper allows us to see exactly which line number the test fails at, comment it out to see the difference, it would fail within the test helper.
+
+//addition of spanish requirement
+// test fails because you pass 2 string arguements, but function only has one
