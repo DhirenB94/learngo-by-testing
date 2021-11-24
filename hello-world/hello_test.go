@@ -2,34 +2,35 @@ package main
 
 import "testing"
 
-/* func TestHello(t *testing.T) {
-	got := Hello("Chris")
-	want := "Hello, Chris"
-
-	if got != want {
-		t.Errorf("got %q want %q", got,want)
-	}
-} */
 
 //when function is called wih an empty string, to default to priniting "Hello, world", rather than "Hello"
 
+
 func TestHello(t *testing.T) {
-	t.Run("saying hello to people", func(t *testing.T) {
-		got := Hello("Chris")
-		want := "Hello, Chris"
-
-		if got!= want {
-			t.Errorf("got %q want %q", got, want)
-		}
-	})                     //this part of the test still passes
-
-	t.Run("say 'Hello, World' when an empty string is supplied", func(t *testing.T) {
-		got := Hello ("")
-		want := "Hello, world"
-
+	assertCorrectMessage := func(t testing.TB, got, want string) {
+		t.Helper()
 		if got != want {
 			t.Errorf("got %q want %q", got, want)
 		}
-	})          //but this part does not, since this is a subtest under one test, the overall test still fails
+	}
+
+	t.Run("saying hello to people", func(t *testing.T) {
+		got := Hello("Chris")
+		want := "Hello, Chris"
+		assertCorrectMessage(t, got, want)
+	})
+
+	t.Run("empty string defaults to 'Hello, world'", func(t *testing.T) {
+		got := Hello("")
+		want := "Hello, world"
+		assertCorrectMessage(t, got, want)
+	})
 }
+
+// have assigned the test function (if got!= want part) to the assertCorrectMessage variable
+// then used this variable instead of repeated if gotwant lines
+//when using t.helper - use testing.TB as this gives access to both testing.T (test) and testing.B (benchmark)
+//t.helper allows us to see exactly which line number the test fails at, comment it out to see the difference, it would fail within the test helper.
+
+
 
