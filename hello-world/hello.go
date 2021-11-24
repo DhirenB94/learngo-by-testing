@@ -1,6 +1,6 @@
 package main
 
-func Hello() string {
+func Hello(name string) string {
 	return "Hello, world"
 }
 func main () {
