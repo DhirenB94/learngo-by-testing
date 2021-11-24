@@ -32,7 +32,11 @@ func TestHello(t *testing.T) {
 		assertCorrectMessage(t, got, want)
 	})
 
-
+	t.Run("in french", func(t *testing.T) {
+		got := Hello("Thierry", "French")
+		want := "Bonjour, Thierry"
+		assertCorrectMessage(t, got, want)
+	})
 }
 
 // have assigned the test function (if got!= want part) to the assertCorrectMessage variable
