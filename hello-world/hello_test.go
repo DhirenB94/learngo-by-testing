@@ -15,13 +15,13 @@ func TestHello(t *testing.T) {
 	}
 
 	t.Run("saying hello to people", func(t *testing.T) {
-		got := Hello("Chris")
+		got := Hello("Chris", "")
 		want := "Hello, Chris"
 		assertCorrectMessage(t, got, want)
 	})
 
 	t.Run("empty string defaults to 'Hello, world'", func(t *testing.T) {
-		got := Hello("")
+		got := Hello("", "")
 		want := "Hello, world"
 		assertCorrectMessage(t, got, want)
 	})
@@ -42,3 +42,5 @@ func TestHello(t *testing.T) {
 
 //addition of spanish requirement
 // test fails because you pass 2 string arguements, but function only has one
+// after making the hello func have 2 arguements, there now arent enough arguements in the other tests!
+//

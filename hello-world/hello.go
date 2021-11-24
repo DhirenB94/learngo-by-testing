@@ -11,5 +11,5 @@ func Hello(name string, language string) string {
 	return englishHelloPrefix + name
 }
 func main () {
-	println(Hello(""))
+	println(Hello("", ""))
 }
