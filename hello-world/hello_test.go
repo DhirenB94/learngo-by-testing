@@ -25,12 +25,17 @@ func TestHello(t *testing.T) {
 		want := "Hello, world"
 		assertCorrectMessage(t, got, want)
 	})
+
+	t.Run("in spanish", func(t *testing.T) {
+		got := Hello("Elodie", "Spanish")
+		want := "Hola, Elodie"
+		assertCorrectMessage(t, got, want)
+	})
+
+
 }
 
 // have assigned the test function (if got!= want part) to the assertCorrectMessage variable
 // then used this variable instead of repeated if gotwant lines
 //when using t.helper - use testing.TB as this gives access to both testing.T (test) and testing.B (benchmark)
 //t.helper allows us to see exactly which line number the test fails at, comment it out to see the difference, it would fail within the test helper.
-
-
-
