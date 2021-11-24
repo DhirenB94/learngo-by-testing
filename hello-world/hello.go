@@ -12,18 +12,25 @@ func Hello(name string, language string) string {
 	if name == "" {
 		return "Hello, world"
 	}
+	return greetingPrefix(language) + name
 
-	prefix := englishHelloPrefix
+}
 
+
+func greetingPrefix(language string) (prefix string) {
 	switch language {
 	case spanish:
 		prefix = spanishHelloPrefix
 	case french:
 		prefix = frenchHelloPrefix
+	default:
+		prefix = englishHelloPrefix
 	}
-
-	return prefix + name
+	return
 }
+//here we get back a named return value (prefix string) -- a string assigned to variable prefix -- so we just have to return, dont have to return prefix
+
+
 func main () {
 	println(Hello("BOB", "French"))
 }
