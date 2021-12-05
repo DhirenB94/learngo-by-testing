@@ -17,13 +17,13 @@ func TestSum(t *testing.T) {
 	})
 
 	t.Run("Colletion of any size (slice)", func(t *testing.T) {
-		numbersTwo := []int{1, 2, 3}
+		numbers := []int{1, 2, 3}
 
-		got := Sumtwo(numbersTwo)
+		got := Sum(numbers)
 		want := 6
 
 		if got != want {
-			t.Errorf("got %d, want %d, given slice %v", got, want, numbersTwo)
+			t.Errorf("got %d, want %d, given slice %v", got, want, numbers)
 		}
 
 	})

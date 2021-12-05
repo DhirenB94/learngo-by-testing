@@ -15,14 +15,3 @@ func Sum(numbers[5]int) int {
 // --lets you iterate over an array
 // -- on each iteration, range returns 2 values, --> the index position and the value
 // -- by using _, we are choosing to ignore the index position
-
-func Sumtwo(numbersTwo[]int) int {
-
-	sumTwo := 0
-
-	for _, numbertwo := range numbersTwo {
-		sumTwo += numbertwo
-	}
-
-	return sumTwo
-}
