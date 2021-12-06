@@ -36,7 +36,7 @@ func TestSum(t *testing.T) {
 		want := []int{8, 5}
 
 
-		//cant do if got != want as cannot use this when comparing slices
+		//can't do if got != want as cannot use this when comparing slices
 		//reflect.DeepEqual allows for the comparison of ANY 2 variables
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got slice %v, want slice %v", got, want)
