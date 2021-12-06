@@ -30,17 +30,18 @@ func TestSum(t *testing.T) {
 		}
 	})
 
+	checkSums:= func(t testing.TB, got, want[]int) { //variable t assigned the testing package -- got and want of type []int
+		t.Helper()
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got slice %v, want slice %v", got, want)
+		}
+	}
+
 	t.Run("takes a varying number of slices and returns a new slice containing the totals for each slice passed", func(t *testing.T) {
 
 		got := SumAll([]int{1,2}, []int{7, 3})
 		want := []int{3, 10}
-
-
-		//can't do if got != want as cannot use this when comparing slices
-		//reflect.DeepEqual allows for the comparison of ANY 2 variables
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got slice %v, want slice %v", got, want)
-		}
+		checkSums(t, got, want)
 	})
 
 	t.Run("Summing all the tails", func(t *testing.T) {
@@ -48,18 +49,14 @@ func TestSum(t *testing.T) {
 		got := SumAllTails([]int{1,2}, []int{7, 3})
 		want := []int{2, 3}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got slice %v, want slice %v", got, want)
-		}
+		checkSums(t, got, want)
 	})
 
 	t.Run("safely sum empty slicea", func(t *testing.T) {
 		got:= SumAllTails([]int{}, []int{3, 4, 5})
 		want:= []int{0, 9}
 
-		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got slice %v, want slice %v", got, want)
-		}
+		checkSums(t, got, want)
 
 	})
 
