@@ -33,7 +33,7 @@ func TestSum(t *testing.T) {
 	t.Run("takes a varying number of slices and returns a new slice containing the totals for each slice passed", func(t *testing.T) {
 
 		got := SumAll([]int{1,2}, []int{7, 3})
-		want := []int{8, 5}
+		want := []int{3, 10}
 
 
 		//can't do if got != want as cannot use this when comparing slices
@@ -44,3 +44,8 @@ func TestSum(t *testing.T) {
 	})
 
 }
+
+
+//reflect.DeepEqual
+//NOT type safe
+//If we changed the want:= to a string, the test would still compile! Eventhough you are comparing a string to a slice

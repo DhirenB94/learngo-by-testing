@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func Sum(numbers []int) int {
 
 	sum := 0
@@ -11,8 +13,23 @@ func Sum(numbers []int) int {
 	return sum
 }
 
-func SumAll(numbersToSum ...[]int) (sums []int) {
-	return
+func SumAll(numbersToSum ...[]int) []int {
+	lengthOfNumbers := len(numbersToSum)
+	sums := make([]int, lengthOfNumbers)
+	//make --> allows us to create a slice with a starting capacity of the len of numbersToSum
+	fmt.Println(sums)
+
+
+	//[]int{1,2}, []int{7, 3}
+	for i, numbers := range numbersToSum {
+		sums[i] = Sum(numbers)
+	}
+	return sums
+}
+// iterate over the varying number of slices in the argument --> add them using our existing Sum func, then add these to a new slice we made
+
+func main() {
+	fmt.Println(SumAll([]int{1,2}, []int{7, 3}))
 }
 
 // range
