@@ -7,16 +7,17 @@ import (
 
 func TestSum(t *testing.T) {
 
+	check:= func(t testing.TB, numbers []int, got, want int) {
+		if got != want {
+			t.Errorf("got %d, want %d, given slice %v", got, want, numbers)
+		}
+	}
 	t.Run("Collection of 5 numbers", func(t *testing.T) {
 		numbers := []int{1, 2, 3, 4, 5}
 
 		got := Sum(numbers)
 		want := 15
-
-
-		if got != want {
-			t.Errorf("Got %d, Want %d, Given array %v", got, want, numbers)
-		}
+		check(t, numbers, got, want)
 	})
 
 	t.Run("Collection of any size (slice)", func(t *testing.T) {
@@ -24,10 +25,8 @@ func TestSum(t *testing.T) {
 
 		got := Sum(numbers)
 		want := 6
+		check(t, numbers, got, want)
 
-		if got != want {
-			t.Errorf("got %d, want %d, given slice %v", got, want, numbers)
-		}
 	})
 
 	checkSums:= func(t testing.TB, got, want[]int) { //variable t assigned the testing package -- got and want of type []int
