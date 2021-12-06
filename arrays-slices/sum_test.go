@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestSum(t *testing.T) {
 
@@ -32,8 +35,11 @@ func TestSum(t *testing.T) {
 		got := SumAll([]int{1,2}, []int{7, 3})
 		want := []int{8, 5}
 
-		if got != want {
-			t.Errorf("got slice %d, want slice %d", got, want)
+
+		//cant do if got != want as cannot use this when comparing slices
+		//reflect.DeepEqual allows for the comparison of ANY 2 variables
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got slice %v, want slice %v", got, want)
 		}
 	})
 
