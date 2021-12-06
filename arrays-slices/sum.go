@@ -22,7 +22,8 @@ func SumAll(numbersToSum ...[]int) []int {
 func SumAllTails(numbersToSum ...[]int) []int {
 	var sums []int
 	for _, numbers := range numbersToSum {
-		sums = append(sums, Sum(numbers))
+		tails:= numbers[1:] //slicing the numbers from and including index position 1 ---> The syntax is slice[low:high]
+		sums = append(sums, Sum(tails))
 	}
 	return sums
 }
