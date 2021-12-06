@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func Sum(numbers []int) int {
 
 	sum := 0
@@ -26,6 +28,10 @@ func SumAllTails(numbersToSum ...[]int) []int {
 		sums = append(sums, Sum(tails))
 	}
 	return sums
+}
+
+func main()  {
+	fmt.Println(SumAllTails([]int{1, 2, 3}, []int{1, 2, 3}, []int{1, 2, 3}))
 }
 
 
