@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func Sum(numbers []int) int {
 
 	sum := 0
@@ -17,14 +15,20 @@ func SumAll(numbersToSum ...[]int) []int {
 	var sums []int
 	for _, numbers := range numbersToSum {
 		sums = append(sums, Sum(numbers))
-		fmt.Println(sums)
 	}
 	return sums
 } //append function --> takes a slice (sums) and a new value (previous function Sum), and returns a new slice with both these items on it
 
-func main() {
-	fmt.Println(SumAll([]int{1,2}, []int{7, 3}, []int{4, 2}, []int{5, 9}))
+func SumAllTails(numbersToSum ...[]int) []int {
+	var sums []int
+	for _, numbers := range numbersToSum {
+		sums = append(sums, Sum(numbers))
+	}
+	return sums
 }
+
+
+
 
 
 

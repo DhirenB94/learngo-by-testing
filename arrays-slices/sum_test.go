@@ -49,7 +49,7 @@ func TestSum(t *testing.T) {
 		want := []int{2, 3}
 
 		if !reflect.DeepEqual(got, want) {
-			t.Errorf("got slice %v, want slice %v\", got, want")
+			t.Errorf("got slice %v, want slice %v", got, want)
 		}
 	})
 
