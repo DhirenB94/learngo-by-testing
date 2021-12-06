@@ -25,7 +25,16 @@ func TestSum(t *testing.T) {
 		if got != want {
 			t.Errorf("got %d, want %d, given slice %v", got, want, numbers)
 		}
+	})
 
+	t.Run("takes a varying number of slices and returns a new slice containing the totals for each slice passed", func(t *testing.T) {
+
+		got := SumAll([]int{1,2}, []int{7, 3})
+		want := []int{8, 5}
+
+		if got != want {
+			t.Errorf("got slice %d, want slice %d", got, want)
+		}
 	})
 
 }
