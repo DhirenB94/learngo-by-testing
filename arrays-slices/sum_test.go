@@ -43,6 +43,17 @@ func TestSum(t *testing.T) {
 		}
 	})
 
+	t.Run("Summing all the tails", func(t *testing.T) {
+		//tails are all parts of a slice apart from the 1st(head), here we are summing all the tails of each slice
+		got := SumAllTails([]int{1,2}, []int{7, 3})
+		want := []int{2, 3}
+
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("got slice %v, want slice %v\", got, want")
+		}
+	})
+
+
 }
 
 
