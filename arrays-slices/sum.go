@@ -24,14 +24,19 @@ func SumAll(numbersToSum ...[]int) []int {
 func SumAllTails(numbersToSum ...[]int) []int {
 	var sums []int
 	for _, numbers := range numbersToSum {
-		tails:= numbers[1:] //slicing the numbers from and including index position 1 ---> The syntax is slice[low:high]
+		if len(numbers) == 0 {
+			sums =append(sums, 0)
+		} else {
+		tails:= numbers[1:]
 		sums = append(sums, Sum(tails))
+		}
+		fmt.Println(numbers, sums)
 	}
 	return sums
 }
 
 func main()  {
-	fmt.Println(SumAllTails([]int{1, 2, 3}, []int{1, 2, 3}, []int{1, 2, 3}))
+	fmt.Println(SumAllTails([]int{}, []int{1, 1, 1}, []int{2, 2, 2}, []int{3, 3, 3}))
 }
 
 
