@@ -14,23 +14,19 @@ func Sum(numbers []int) int {
 }
 
 func SumAll(numbersToSum ...[]int) []int {
-	lengthOfNumbers := len(numbersToSum)
-	sums := make([]int, lengthOfNumbers)
-	//make --> allows us to create a slice with a starting capacity of the len of numbersToSum
-	fmt.Println(sums)
-
-
-	//[]int{1,2}, []int{7, 3}
-	for i, numbers := range numbersToSum {
-		sums[i] = Sum(numbers)
+	var sums []int
+	for _, numbers := range numbersToSum {
+		sums = append(sums, Sum(numbers))
+		fmt.Println(sums)
 	}
 	return sums
-}
-// iterate over the varying number of slices in the argument --> add them using our existing Sum func, then add these to a new slice we made
+} //append function --> takes a slice (sums) and a new value (previous function Sum), and returns a new slice with both these items on it
 
 func main() {
-	fmt.Println(SumAll([]int{1,2}, []int{7, 3}))
+	fmt.Println(SumAll([]int{1,2}, []int{7, 3}, []int{4, 2}, []int{5, 9}))
 }
+
+
 
 // range
 // --lets you iterate over an array
