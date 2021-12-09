@@ -20,4 +20,8 @@ type Rectangle struct {
 	height float64
 }
 
+type Circle struct {
+	radius float64
+}
+
 
