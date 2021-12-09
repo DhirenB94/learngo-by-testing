@@ -17,11 +17,27 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	rectangle := Rectangle{12.0, 5.0}
-	got := Area(rectangle)
-	want := 60.0
 
-	if got != want {
-		t.Errorf("Got area %.2f, but want area %.2f", got, want)
-	}
+	t.Run("Area of a rectangle", func(t *testing.T) {
+		rectangle := Rectangle{12.0, 5.0}
+		got := Area(rectangle)
+		want := 60.0
+
+		if got != want {
+			t.Errorf("Got area %.2f, but want area %.2f", got, want)
+		}
+	})
+
+	t.Run("Area of a circle", func(t *testing.T) {
+
+
+		got := Area(circle)
+		want := 314.1592653589793
+
+		if got != want {
+			t.Errorf("Got area %g, but want area %g", got, want) //g prints a more precise decimal number
+		}
+
+	})
+
 }
