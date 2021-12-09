@@ -20,7 +20,7 @@ func TestArea(t *testing.T) {
 
 	t.Run("Area of a rectangle", func(t *testing.T) {
 		rectangle := Rectangle{12.0, 5.0}
-		got := Area(rectangle)
+		got := rectangle.Area()
 		want := 60.0
 
 		if got != want {
@@ -33,7 +33,7 @@ func TestArea(t *testing.T) {
 		circle := Circle {
 			radius: 10.0,
 		}
-		got := Area(circle)
+		got := circle.Area()
 		want := 314.1592653589793
 
 		if got != want {
@@ -41,5 +41,9 @@ func TestArea(t *testing.T) {
 		}
 
 	})
+	//Current errors
+	// rectangle.Area undefined (type Rectangle has no field or method Area)
+	// circle.Area undefined (type Circle has no field or method Area)
+
 
 }
