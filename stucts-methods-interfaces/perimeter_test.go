@@ -13,7 +13,7 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	got := AreaOfRectangle(12.0, 5.0)
+	got := Area(12.0, 5.0)
 	want := 60.0
 
 	if got != want {
