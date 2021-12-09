@@ -12,3 +12,11 @@ func TestPerimeter(t *testing.T) {
 	} // f for float 64 and .2 for 2 decimal places
 }
 
+func TestArea(t *testing.T) {
+	got := AreaOfRectangle(12.0, 5.0)
+	want := 60.0
+
+	if got != want {
+		t.Errorf("Got area %.2f, but want area %.2f", got, want)
+	}
+}
