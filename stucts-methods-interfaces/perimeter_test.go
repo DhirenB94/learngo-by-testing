@@ -18,32 +18,34 @@ func TestPerimeter(t *testing.T) {
 
 func TestArea(t *testing.T) {
 
-	t.Run("Area of a rectangle", func(t *testing.T) {
+	checkArea := func(t testing.TB, shape Shape, want float64) {
+		t.Helper()
+	got := shape.Area()
+	if got != want {
+		t.Errorf("got %g, want %g", got, want)
+	}
+
+	}
+	t.Run("rectangles", func(t *testing.T) {
 		rectangle := Rectangle{12.0, 5.0}
-		got := rectangle.Area()
-		want := 60.0
-
-		if got != want {
-			t.Errorf("Got area %.2f, but want area %.2f", got, want)
-		}
-	})
-
-	t.Run("Area of a circle", func(t *testing.T) {
-
-		circle := Circle {
-			radius: 10.0,
-		}
-		got := circle.Area()
-		want := 314.1592653589793
-
-		if got != want {
-			t.Errorf("Got area %g, but want area %g", got, want) //g prints a more precise decimal number
-		}
+		checkArea(t, rectangle, 60.0)
 
 	})
-	//Current errors
-	// rectangle.Area undefined (type Rectangle has no field or method Area)
-	// circle.Area undefined (type Circle has no field or method Area)
 
+	t.Run("circles", func(t *testing.T) {
+		circle:= Circle{10.0}
+		checkArea(t, circle, 314.1592653589793)
+	})
+
+	//Interfaces
+	//We want to take a collection of shapes, call the Area() method on them and then check the result
+	// So we can write a checkArea function that we can pass both Rectangles and Circles to, but fail to compile if we try to pass something that isnt a shape
+	//Interfaces allow you to make functions that can be used with different types whilst still maintaining type safety
+
+	//We are creating a helper function where we are asking for a Shape to be passed in - if something that isnt a shape is passed it will not clompile
+	//now we just need to tell Go what a Shape interface is!
+
+
+	
 
 }
