@@ -44,8 +44,4 @@ func TestArea(t *testing.T) {
 
 	//We are creating a helper function where we are asking for a Shape to be passed in - if something that isnt a shape is passed it will not clompile
 	//now we just need to tell Go what a Shape interface is!
-
-
-	
-
 }

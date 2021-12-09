@@ -23,6 +23,15 @@ type Rectangle struct {
 type Circle struct {
 	radius float64
 }
+
+type Shape interface {
+	 Area() float64
+}
+
+
+
+
+
 //Structs
 //named collection of fields where you can store data
 
