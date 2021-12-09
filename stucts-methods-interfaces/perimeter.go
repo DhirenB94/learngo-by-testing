@@ -1,14 +1,17 @@
 package perimeter
 
+import "math"
+
+
 func Perimeter(rectanglePerim Rectangle) float64 {
 	return 2 * (rectanglePerim.width + rectanglePerim.height) //access the structs fields
 }
 
 func (r Rectangle) Area() float64 {
-	return 0
+	return r.width * r.height
 }
 func (c Circle) Area() float64 {
-	return 0
+	return math.Pi * c.radius * c.radius
 }
 
 
