@@ -30,7 +30,9 @@ func TestArea(t *testing.T) {
 
 	t.Run("Area of a circle", func(t *testing.T) {
 
-
+		circle := Circle {
+			radius: 10.0,
+		}
 		got := Area(circle)
 		want := 314.1592653589793
 
