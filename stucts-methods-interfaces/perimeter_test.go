@@ -18,22 +18,39 @@ func TestPerimeter(t *testing.T) {
 
 func TestArea(t *testing.T) {
 	areaTests := []struct {
+		name  string
 		shape Shape
-		want  float64
+		hasArea  float64
 	}{
-		{Rectangle{12.0, 5.0}, 60.0},
-		{Circle{10.0}, 314.1592653589793},
-		{Triangle{base: 10.0, height: 20.0}, 100.00 },
-		
+		{"Rectangle", Rectangle{12.0, 5.0}, 60.0},
+		{"Circle", Circle{10.0}, 314.1592653589793},
+		{"Triangle", Triangle{10.0, 20.0}, 100.00},
 	}
 
-	for _, tt := range areaTests{
-		got:= tt.shape.Area()
-		if got != tt.want{
-			 t.Errorf("got %g, want %g", got, tt.want)
-		}
+	for _, tt := range areaTests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+			if got != tt.hasArea {
+				t.Errorf("%#v got %g, has area %g", tt.shape, got, tt.hasArea)
+			}
+		})
 	}
 }
+
+//changes to make test easier to decipher and debug
+//1. changing our error message to include %#v --> this allows us to see exactly which case has the error, otherwise we would only know there was an error in one of these cases
+// here we are printing out the struct with its values in its fields (eg Triangle{10.0, 20.0})
+//2. including a name field in our struct
+//3. renaming the want field to hasArea
+//4. wrapping each case in a t.run gives us a clearer test output as it will print the name of the case eg FAIL: TestArea/Rectangle (0.00s)
+//5. using tt.name from the case to use it as the t.run test name
+
+
+
+
+
+
+
 
 // TDD - table driven tests
 // created an anonymous struct --> areaTests
