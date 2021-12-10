@@ -14,7 +14,6 @@ func (c Circle) Area() float64 {
 	return math.Pi * c.radius * c.radius
 }
 
-
 type Rectangle struct {
 	width float64
 	height float64
@@ -24,11 +23,16 @@ type Circle struct {
 	radius float64
 }
 
+type Triangle struct {
+	base float64
+	height float64
+}
+
 type Shape interface {
 	 Area() float64
 }
 
-//Rextangle and Circle have methods called Area() that return a float64, so it satisfies the Shape interface
+//Rectangle and Circle have methods called Area() that return a float64, so it satisfies the Shape interface
 
 
 //Structs
