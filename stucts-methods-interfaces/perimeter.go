@@ -15,7 +15,7 @@ func (c Circle) Area() float64 {
 }
 
 func(t Triangle) Area() float64{
-	return 0
+	return 0.5 * t.base * t.height
 }
 
 type Rectangle struct {
