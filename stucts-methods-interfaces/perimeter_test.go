@@ -17,31 +17,25 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-
-	checkArea := func(t testing.TB, shape Shape, want float64) {
-		t.Helper()
-	got := shape.Area()
-	if got != want {
-		t.Errorf("got %g, want %g", got, want)
+	areaTests := []struct {
+		shape Shape
+		want  float64
+	}{
+		{Rectangle{12.0, 5.0}, 60.0},
+		{Circle{10.0}, 314.1592653589793},
 	}
 
+	for _, tt := range areaTests{
+		got:= tt.shape.Area()
+		if got != tt.want{
+			 t.Errorf("got %g, want %g", got, tt.want)
+		}
 	}
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{12.0, 5.0}
-		checkArea(t, rectangle, 60.0)
-
-	})
-
-	t.Run("circles", func(t *testing.T) {
-		circle:= Circle{10.0}
-		checkArea(t, circle, 314.1592653589793)
-	})
-
-	//Interfaces
-	//We want to take a collection of shapes, call the Area() method on them and then check the result
-	// So we can write a checkArea function that we can pass both Rectangles and Circles to, but fail to compile if we try to pass something that isnt a shape
-	//Interfaces allow you to make functions that can be used with different types whilst still maintaining type safety
-
-	//We are creating a helper function where we are asking for a Shape to be passed in - if something that isnt a shape is passed it will not clompile
-	//now we just need to tell Go what a Shape interface is!
 }
+
+// TDD - table driven tests
+// created an anonymous struct --> areaTests
+// this struct is a slice of structs ([]struct) that has 2 fields, shape and want
+// Then we fill the slices with cases - eg rectangle and circle, and then iterate through the slice of structs in the areaTests struct
+// you can easily add another shape and add to the test list
+// useful when you want to build a list of test cases that can be tested in the same manner
