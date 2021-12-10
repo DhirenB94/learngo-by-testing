@@ -14,6 +14,10 @@ func (c Circle) Area() float64 {
 	return math.Pi * c.radius * c.radius
 }
 
+func(t Triangle) Area() float64{
+	return 0
+}
+
 type Rectangle struct {
 	width float64
 	height float64
