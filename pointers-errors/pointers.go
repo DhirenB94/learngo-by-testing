@@ -7,20 +7,15 @@ type Wallet struct {
 }
 
 
-func (w Wallet) Deposit(amount int) {
+func (w *Wallet) Deposit(amount int) {
 	fmt.Printf("address of balance in Deposit is %v\n", &w.balance)
 	w.balance += amount
 }
 
-func (w Wallet) Balance() int {
+func (w *Wallet) Balance() int {
 	return w.balance
 }
 
-//You would think this would return a passing test
-//as you are depositing the amount variable (10) to the balance
-//then the balance method should return the current state of it
-
-//BUT NO
-// In Go, when you call a function or a method, the arguements are copied!
-//so when we call func(w Wallet)Deposit(amount int) --> the w is a copy of whatever we called the method from
-
+//Now we use pointers which allows us to actually change the value
+//rather than taking a copy of the whole Wallet struct, we instead take a pointer to it so we can change the value
+// the difference is the receiver TYPE is now of type *Wallet not type Wallert
