@@ -21,12 +21,14 @@ func TestWallet(t *testing.T) {
 	})
 
 	t.Run("Withdraw test", func(t *testing.T) {
-		wallet := Wallet{}
+		wallet := Wallet{
+			balance: 20,
+		}
 
 		wallet.Withdraw(Bitcoin(5))
 
 		got:= wallet.Balance()
-		want := Bitcoin(5)
+		want := Bitcoin(15)
 
 		if got != want {
 			t.Errorf("got %d, want %d", got, want)
