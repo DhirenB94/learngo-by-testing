@@ -39,8 +39,3 @@ func (w *Wallet) Withdraw(amount Bitcoin) error{
 	w.balance -= amount
 	return nil
 }
-// we want to return an error only IF you try too withdraw too much
-//otherwise if there is no error we return nil
-// if we run the test so that there is no withdrawal error, the error would return nil
-// and so:
-//("Wanted an error but didnt get one") would be triggered
