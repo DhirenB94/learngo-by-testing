@@ -40,18 +40,18 @@ func TestWallet(t *testing.T) {
 		err := wallet.Withdraw(Bitcoin(200))
 
 
-		assertBalance(t, wallet, startingBalance)
+		assertBalance(t, wallet, startingBalance) //want = startingBalance, because you dont want anything to actually be withdrawn if its too much
 
 		if err == nil {
 			t.Errorf("Wanted an error but didnt get one")
 		}
 
-		// we want to return an error if you try and withdraw more than you have, and the balance should stay the same
-		//we then check an error has returned by failing the test if it is nil
-		//Errors can be nil because the return type of Withdraw will be error, which is an interface.
-		//functions that take arguments or return values that are interfaces, they can be nillable.
+		// we want to return an 'error' if you try and withdraw more than you have, and the balance should stay the same
 
-		// Current error
-		// ./pointers_test.go:40:25: wallet.Withdraw(Bitcoin(200)) used as value
+		//current error
+		// Tests runs but fails
+		//		pointers_test.go:43: got -100 whatever the hell you want, want 100 whatever the hell you want --> it is withdrawing
+		//    	pointers_test.go:46: Wanted an error but didnt get one --> because we've told withdraw func returns nil which is triggering the err
+
 	})
 }

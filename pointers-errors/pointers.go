@@ -29,6 +29,8 @@ func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
 
-func (w *Wallet) Withdraw(amount Bitcoin) {
+func (w *Wallet) Withdraw(amount Bitcoin) error{
 	w.balance -= amount
+	return nil
 }
+// this method has been declared to return an error, so we have to have a return statement at the end of the func
