@@ -37,21 +37,14 @@ func TestWallet(t *testing.T) {
 		startingBalance := Bitcoin(100)
 
 		wallet := Wallet{balance: startingBalance}
-		err := wallet.Withdraw(Bitcoin(200))
+		err := wallet.Withdraw(Bitcoin(0))
 
 
-		assertBalance(t, wallet, startingBalance) //want = startingBalance, because you dont want anything to actually be withdrawn if its too much
+		assertBalance(t, wallet, startingBalance)
 
 		if err == nil {
 			t.Errorf("Wanted an error but didnt get one")
 		}
-
-		// we want to return an 'error' if you try and withdraw more than you have, and the balance should stay the same
-
-		//current error
-		// Tests runs but fails
-		//		pointers_test.go:43: got -100 whatever the hell you want, want 100 whatever the hell you want --> it is withdrawing
-		//    	pointers_test.go:46: Wanted an error but didnt get one --> because we've told withdraw func returns nil which is triggering the err
-
 	})
+
 }
