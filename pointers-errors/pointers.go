@@ -1,6 +1,9 @@
 package pointers
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Stringer interface {
 	String() string
@@ -30,7 +33,11 @@ func (w *Wallet) Balance() Bitcoin {
 }
 
 func (w *Wallet) Withdraw(amount Bitcoin) error{
+	if amount > w.balance {
+		return errors.New("Woops, you tried to withdraw more than you have")
+	}
 	w.balance -= amount
 	return nil
 }
-// this method has been declared to return an error, so we have to have a return statement at the end of the func
+
+//errors.New() allows you to create a new error with a message of your choosing
