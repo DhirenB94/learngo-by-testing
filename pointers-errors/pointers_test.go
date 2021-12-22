@@ -14,12 +14,20 @@ func TestWallet(t *testing.T) {
 		}
 	}
 
-	assertError := func(t testing.TB, err error) {
+	assertError := func(t testing.TB, got error, want string) {
 		t.Helper()
-		if err == nil {
-			t.Errorf("no error")
+		if got == nil {
+			t.Fatalf("did not get an error but wanted one")
+		}
+
+		if got.Error() != want {
+			t.Errorf("got %q, want %q", got, want)
 		}
 	}
+	//t.fatal --> will stop the test if it is called
+	//this is because we do not want to make any more asseertions on the error if there isn't one
+	//otherwise the test would proceed to the next part and panic because of a nil pointer
+
 
 
 	t.Run("Deposit test", func(t *testing.T) {
@@ -44,11 +52,19 @@ func TestWallet(t *testing.T) {
 		startingBalance := Bitcoin(100)
 
 		wallet := Wallet{balance: startingBalance}
-		err := wallet.Withdraw(Bitcoin(0))
+		err := wallet.Withdraw(Bitcoin(200))
 
-		assertError(t, err)
+		assertError(t, err, "Cannot make withdrawal, insufficient funds")
 		assertBalance(t, wallet, startingBalance)
 
 	})
 
 }
+
+//updated test to assert on some kind of error message rather than just the existence of an error.
+//1.update our helper for a string to compare against
+//2.update the caller
+
+
+//Current error
+//got "Woops, you tried to withdraw more than you have", want "Cannot make withdrawal, insufficient funds"
