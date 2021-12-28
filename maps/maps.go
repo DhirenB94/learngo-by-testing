@@ -1,8 +1,10 @@
 package maps
 
+type Dictionary map[string]string
 
-func Search(dictionary map[string]string, word string) string{
-	return dictionary[word]
+func (d Dictionary) Search(word string) string {
+	return d[word]
 }
-//getting a value out of map is same as getting one from an array
-//map[key]
+
+//here we have creates a Dictionary type which acts as a thin wrapper around map
+//then creates a Search method

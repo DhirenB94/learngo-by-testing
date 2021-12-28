@@ -3,9 +3,9 @@ package maps
 import "testing"
 
 func TestSearch(t *testing.T) {
-	dictionary := map[string]string{"test" : "this is just a test"}
+	dictionary := Dictionary{"test" : "this is just a test"}
 
-	got := Search(dictionary, "test")
+	got := dictionary.Search("test")
 	want := "this is just a test"
 
 	assertStrings(t, got, want)
@@ -20,3 +20,6 @@ func assertStrings(t testing.TB, got, want string)  {
 	}
 }
 
+
+//we have started using the Dictionary type (which we need to define in dictionary.go
+//and then called the search method on the dictionary instance
