@@ -6,7 +6,7 @@ func TestSearch(t *testing.T) {
 	dictionary := Dictionary{"test" : "this is just a test"}
 
 	t.Run("known word", func(t *testing.T) {
-		got := dictionary.Search("test")
+		got, _ := dictionary.Search("test")
 		want := "this is just a test"
 
 		assertStrings(t, got, want )
@@ -34,10 +34,12 @@ func assertStrings(t testing.TB, got, want string)  {
 }
 
 //what happens if the word we search for is not in the map - we want to communicate this to the user
-//we return a 2nd argument which is an Error type
+//the way to handle this scenario in go is we return a 2nd argument which is an Error type (in the search method)
+//which means whenever we use this method we have to give it 2 inputs --> _
+
 //Errors can be converted to a string with the .Error() method, which we do when passing it to the assertion
 //We are also protecting assertStrings with if to ensure we don't call .Error() on nil.
 
 
 //current test output
-// ./maps_test.go:16:10: assignment mismatch: 2 variables but dictionary.Search returns 1 value
+// assignment mismatch: 2 variables but dictionary.Search returns 1 value
