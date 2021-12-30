@@ -37,12 +37,37 @@ func assertError(t testing.TB, got, want error) {
 }
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-	word:= "test"
-	definition := "this is just a test"
-	dictionary.Add(word, definition)
 
-	assertDefinition(t, dictionary, word, definition)
+	t.Run("add new word", func(t *testing.T) {
+		dictionary := Dictionary{}
+		word:= "test"
+		definition := "this is just a test"
+
+		err := dictionary.Add(word, definition)
+
+		assertError(t, err, nil) //modified to check for a nil error
+		assertDefinition(t, dictionary, word, definition)
+	})
+
+	t.Run("add already existing word", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+
+		dictionary := Dictionary{word: definition}
+
+		err := dictionary.Add(word, "new test")
+
+		assertError(t, err, ErrWordExists)
+		assertDefinition(t, dictionary, word, definition)
+
+	})
+
+	//current errors
+	// ./maps_test.go:46:24: dictionary.Add(word, definition) used as value
+	//./maps_test.go:58:24: dictionary.Add(word, "new test") used as value
+	//./maps_test.go:60:23: undefined: ErrWordExists
+	//compiler fails because Add() doesnt actually return anything
+
 
 }
 
@@ -60,7 +85,4 @@ func assertDefinition(t testing.TB, dictionary Dictionary, word, definition stri
 	}
 }
 
-//Currently, if we try to add a word that already exists, Map will not throw an error
-//it will overwrite the word with the newly provided word
-// in our case we want our add to only add new words, not modify existing
 
