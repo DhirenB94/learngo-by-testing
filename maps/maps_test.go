@@ -35,4 +35,23 @@ func assertError(t testing.TB, got, want error) {
 		t.Errorf("got error %q, want %q", got, want)
 	}
 }
+//new test to add words
+//utilise our search method to make validation of our dictionary easier
+
+func TestAdd(t *testing.T) {
+	dictionary := Dictionary{}
+	dictionary.Add("test", "this is just a test")
+
+	want := "this is just a test"
+	got, err := dictionary.Search("test")
+
+	if err != nil {
+		t.Fatal("should find added word:", err)
+	}
+
+	if got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+}
+
 
