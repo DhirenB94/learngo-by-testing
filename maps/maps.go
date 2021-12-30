@@ -16,5 +16,8 @@ func (d Dictionary) Search(word string) (string, error) {
 }
 
 func (d Dictionary) Add(word, definition string) {
+	d[word] = definition
 }
-
+//adding to a map is similar to an array
+//need to specify a key and set it equal to a value
+// d[test] = this is just a test
