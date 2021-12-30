@@ -13,8 +13,6 @@ func (e DictionaryErr) Error() string {
 	return string(e)
 }
 
-// We made the errors constant;
-//this required us to create our own DictionaryErr type which implements the error interface.
 
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
