@@ -33,7 +33,7 @@ func TestAdd(t *testing.T) {
 		assertDefinition(t, dictionary, word, definition)
 	})
 
-	t.Run("add already existing word", func(t *testing.T) {
+	t.Run("trying to add an already existing word", func(t *testing.T) {
 		word := "test"
 		definition := "this is just a test"
 
@@ -50,15 +50,33 @@ func TestAdd(t *testing.T) {
 //update the definition of an existing word
 
 func TestUpdate(t *testing.T) {
-	word := "test"
-	definition := "this is just a test"
-	newDefinition := "new definition"
+	t.Run("existing word so update definition", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+		newDefinition := "new definition"
 
-	dictionary := Dictionary{word: definition}
+		dictionary := Dictionary{word: definition}
 
-	dictionary.Update(word, newDefinition)
+		err := dictionary.Update(word, newDefinition)
 
-	assertDefinition(t, dictionary, word, newDefinition)
+		assertError(t, err, nil)
+		assertDefinition(t, dictionary, word, newDefinition)	
+	})
+	t.Run("new word so can not update", func(t *testing.T) {
+		word := "test"
+		definition := "this is just a test"
+
+		dictionary := Dictionary{}
+
+		err := dictionary.Update(word, definition)
+
+		assertError(t, err, ErrWordDoesNotExist)
+	})
+	// Current errors :
+	// ./maps_test.go:60:27: dictionary.Update(word, newDefinition) used as value
+	// ./maps_test.go:71:27: dictionary.Update(word, definition) used as value
+	// ./maps_test.go:73:23: undefined: ErrWordDoesNotExist
+	
 
 }
 
