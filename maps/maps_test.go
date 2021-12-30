@@ -20,22 +20,6 @@ func TestSearch(t *testing.T) {
 
 }
 
-func assertStrings(t testing.TB, got, want string)  {
-	t.Helper()
-
-	if got!= want {
-		t.Errorf("got %q, want %q", got, want)
-	}
-}
-
-func assertError(t testing.TB, got, want error) {
-	t.Helper()
-
-	if got!= want {
-		t.Errorf("got error %q, want %q", got, want)
-	}
-}
-
 func TestAdd(t *testing.T) {
 
 	t.Run("add new word", func(t *testing.T) {
@@ -61,14 +45,25 @@ func TestAdd(t *testing.T) {
 		assertDefinition(t, dictionary, word, definition)
 
 	})
+	 //Current errors
+	//maps_test.go:44: got error %!q(<nil>), want "the word already exists"
+	//maps_test.go:45: got "new test", want "this is just a test"
+}
 
-	//current errors
-	// ./maps_test.go:46:24: dictionary.Add(word, definition) used as value
-	//./maps_test.go:58:24: dictionary.Add(word, "new test") used as value
-	//./maps_test.go:60:23: undefined: ErrWordExists
-	//compiler fails because Add() doesnt actually return anything
+func assertStrings(t testing.TB, got, want string)  {
+	t.Helper()
 
+	if got!= want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+}
 
+func assertError(t testing.TB, got, want error) {
+	t.Helper()
+
+	if got!= want {
+		t.Errorf("got error %q, want %q", got, want)
+	}
 }
 
 func assertDefinition(t testing.TB, dictionary Dictionary, word, definition string)  {

@@ -4,7 +4,10 @@ import "errors"
 
 type Dictionary map[string]string
 
-var ErrNotFound = errors.New("the word you are looking for can not be found")
+var (
+	ErrNotFound = errors.New("the word you are looking for can not be found")
+	ErrWordExists = errors.New("the word already exists")
+)
 
 func (d Dictionary) Search(word string) (string, error) {
 	definition, ok := d[word]
@@ -15,7 +18,9 @@ func (d Dictionary) Search(word string) (string, error) {
 	return definition, nil
 }
 
-func (d Dictionary) Add(word, definition string) {
+func (d Dictionary) Add(word, definition string)  error {
 	d[word] = definition
+
+	return nil
 }
 
