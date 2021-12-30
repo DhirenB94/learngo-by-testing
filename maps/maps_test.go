@@ -72,11 +72,6 @@ func TestUpdate(t *testing.T) {
 
 		assertError(t, err, ErrWordDoesNotExist)
 	})
-	// Current errors :
-	// ./maps_test.go:60:27: dictionary.Update(word, newDefinition) used as value
-	// ./maps_test.go:71:27: dictionary.Update(word, definition) used as value
-	// ./maps_test.go:73:23: undefined: ErrWordDoesNotExist
-	
 
 }
 

@@ -5,6 +5,7 @@ type Dictionary map[string]string
 const (
 	ErrNotFound = DictionaryErr("the word you are looking for can not be found")
 	ErrWordExists = DictionaryErr("the word already exists")
+	ErrWordDoesNotExist = DictionaryErr("word does not exist so can not update")
 )
 
 type DictionaryErr string
@@ -39,8 +40,7 @@ func (d Dictionary) Add(word, definition string)  error {
 }
 
 
-func (d Dictionary) Update(word, definition string) {
+func (d Dictionary) Update(word, definition string) error{
 	d[word] = definition
+	return nil
 }
-//eventhough the test passses, if we pass a new word rather than an existing word with new definition
-//then this will just add a new word
