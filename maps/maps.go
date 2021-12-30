@@ -55,5 +55,10 @@ func (d Dictionary) Update(word, definition string) error{
 }
 
 func (d Dictionary) Delete(word string) {
-	
+	delete(d, word)
+
+	//Go has a built-in function delete that works on maps.
+	//It takes two arguments. The first is the map and the second is the key to be removed.
+	//The delete function returns nothing, and we based our Delete method on the same notion.
+	//Since deleting a value that's not there has no effect, unlike our Update and Add methods, we don't need to complicate the API with errors.
 }
