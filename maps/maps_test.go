@@ -45,9 +45,6 @@ func TestAdd(t *testing.T) {
 		assertDefinition(t, dictionary, word, definition)
 
 	})
-	 //Current errors
-	//maps_test.go:44: got error %!q(<nil>), want "the word already exists"
-	//maps_test.go:45: got "new test", want "this is just a test"
 }
 
 func assertStrings(t testing.TB, got, want string)  {
