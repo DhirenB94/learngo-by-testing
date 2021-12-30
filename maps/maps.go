@@ -53,3 +53,5 @@ func (d Dictionary) Update(word, definition string) error{
 	}
 	return nil
 }
+
+//you could have re-used ErrNotFound, but better to have a very specific message when dealing with errors
