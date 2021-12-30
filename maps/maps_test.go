@@ -54,4 +54,10 @@ func TestAdd(t *testing.T) {
 	}
 }
 
+//creating an empty map
+//calling add method (which currently does nothing)
+//then calling the search method which returns 2 values - string and error
+// as Add() doesnt do anyhthing, you are searching for "test" in an empty map so it will follow the unkown word path
+//this will return empty string and ErrNotFound - assigned to got and err
+//err does not qual nil it equals ErrNotFound so fatals with message and the err
 
