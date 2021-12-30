@@ -19,8 +19,25 @@ func (d Dictionary) Search(word string) (string, error) {
 }
 
 func (d Dictionary) Add(word, definition string)  error {
-	d[word] = definition
+	_, err := d.Search(word)
+
+	switch err {
+	case ErrNotFound:
+		d[word] = definition
+	case nil:
+		return ErrWordExists
+	default:
+		return err
+	}
 
 	return nil
 }
 
+// I think....
+//we are switching on the error
+//d.search(word) retruns string and an error
+// _ = string (we dont care about it) and err = error
+//when you search an unknown word with Search(), you will return ErrNotFound as the error
+//this mean the word does not already exist and you can add it --> adding to map --> d[word] = definition
+//if the word does exist, Search() will return nil so we switch on this and return ErrWordExists as we dont want to add and overwrite
+//Having a switch like this provides an extra safety net, in case Search() returns an error other than ErrNotFound
