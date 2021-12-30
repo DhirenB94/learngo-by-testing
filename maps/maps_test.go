@@ -60,3 +60,7 @@ func assertDefinition(t testing.TB, dictionary Dictionary, word, definition stri
 	}
 }
 
+//Currently, if we try to add a word that already exists, Map will not throw an error
+//it will overwrite the word with the newly provided word
+// in our case we want our add to only add new words, not modify existing
+
