@@ -19,8 +19,6 @@ func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	playersScore := ps.Store.GetPlayerScore(player)
 
 	if playersScore == 0 {
-		//in our tests, this is the value at the key
-		// if player doesnt exist in the map, the value will be 0
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
