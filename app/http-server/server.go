@@ -17,5 +17,7 @@ type PlayerServer struct {
 func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	w.WriteHeader(http.StatusNotFound)
+	//due to this line our misisng platyer test passes, but so do all our other tests
+	//so need to modfiy the others
 	fmt.Fprint(w, ps.Store.GetPlayerScore(player))
 }
