@@ -6,8 +6,12 @@ import (
 	"strings"
 )
 
+//We need to update PlayerServer's idea of what a PlayerStore is by changing the interface
+//if we're going to be able to call RecordWin
+
 type PlayerStore interface {
 	GetPlayerScore(name string) int
+	RecordWin(name string)
 }
 
 type PlayerServer struct {

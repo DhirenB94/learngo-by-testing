@@ -6,8 +6,12 @@ import (
 	"net/http"
 )
 
-//we have not passed in a PlayerStore.
-//hard coded for now because we arent storing any data
+//by changing the interface, main no longer compiles
+//Error:
+/*
+./main.go:20:37: cannot use &InMemoryPlayerStore{} (type *InMemoryPlayerStore) as type httpserver.PlayerStore in field value:
+*InMemoryPlayerStore does not implement httpserver.PlayerStore (missing RecordWin method)
+*/
 
 type InMemoryPlayerStore struct {
 }

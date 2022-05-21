@@ -77,7 +77,7 @@ func TestStoreWins(t *testing.T) {
 	server := &PlayerServer{Store: &store}
 
 	t.Run("it returns accepted on POST", func(t *testing.T) {
-		request, _ := http.NewRequest(http.MethodPost, "/players/Pedro", nil)
+		request := newPostWinRequest("Pedro")
 		response := httptest.NewRecorder()
 
 		server.ServeHTTP(response, request)
@@ -90,6 +90,11 @@ func TestStoreWins(t *testing.T) {
 
 	})
 
+}
+
+func newPostWinRequest(name string) *http.Request {
+	req, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("/players/%s", name), nil)
+	return req
 }
 
 func newGetScoreRequest(name string) *http.Request {
