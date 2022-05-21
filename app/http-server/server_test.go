@@ -70,7 +70,9 @@ func TestGetPlayers(t *testing.T) {
 }
 
 func TestStoreWins(t *testing.T) {
-	store := FakePlayerStore{map[string]int{}}
+	store := FakePlayerStore{
+		map[string]int{},
+		nil}
 
 	server := &PlayerServer{Store: &store}
 
