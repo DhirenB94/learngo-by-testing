@@ -16,8 +16,14 @@ type PlayerServer struct {
 
 func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
-	w.WriteHeader(http.StatusNotFound)
-	//due to this line our misisng platyer test passes, but so do all our other tests
-	//so need to modfiy the others
-	fmt.Fprint(w, ps.Store.GetPlayerScore(player))
+	playersScore := ps.Store.GetPlayerScore(player)
+
+	if playersScore == 0 {
+		//in our tests, this is the value at the key
+		// if player doesnt exist in the map, the value will be 0
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, playersScore)
 }
