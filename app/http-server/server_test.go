@@ -7,15 +7,21 @@ import (
 	"testing"
 )
 
-//tests were failing because we weren't passing anything into our playerserver (needs a store)
-//so we create a fake store
+//Now we want to check that when we make the Post /players/{name},
+//that our PlayerStore somehow records the win
+
 type FakePlayerStore struct {
-	scores map[string]int
+	scores   map[string]int
+	winCalls []string
 }
 
 func (s *FakePlayerStore) GetPlayerScore(name string) int {
 	score := s.scores[name]
 	return score
+}
+
+func (s *FakePlayerStore) RecordWin(name string) {
+	s.winCalls = append(s.winCalls, name)
 }
 
 func TestGetPlayers(t *testing.T) {
@@ -75,6 +81,11 @@ func TestStoreWins(t *testing.T) {
 		server.ServeHTTP(response, request)
 
 		assertStatus(t, response.Code, http.StatusAccepted)
+
+		if len(store.winCalls) != 1 {
+			t.Errorf("got %d calls to RecordWin, want %d", len(store.winCalls), 1)
+		}
+
 	})
 
 }
