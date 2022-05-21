@@ -15,6 +15,10 @@ type PlayerServer struct {
 }
 
 func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		w.WriteHeader(http.StatusAccepted)
+		return
+	}
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	playersScore := ps.Store.GetPlayerScore(player)
 
