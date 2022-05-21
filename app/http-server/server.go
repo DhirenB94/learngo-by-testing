@@ -11,10 +11,10 @@ type PlayerStore interface {
 }
 
 type PlayerServer struct {
-	store PlayerStore
+	Store PlayerStore
 }
 
 func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
-	fmt.Fprint(w, ps.store.GetPlayerScore(player))
+	fmt.Fprint(w, ps.Store.GetPlayerScore(player))
 }

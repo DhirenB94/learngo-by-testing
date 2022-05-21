@@ -6,10 +6,18 @@ import (
 	"net/http"
 )
 
+//we have not passed in a PlayerStore.
+//hard coded for now because we arent storing any data
+
+type InMemoryPlayerStore struct {
+}
+
+func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
+	return 123
+}
+
 func main() {
-	server := &httpserver.PlayerServer{}
+	server := &httpserver.PlayerServer{Store: &InMemoryPlayerStore{}}
 	log.Fatal(http.ListenAndServe(":5001", server))
 
-	//I can change this to pass  my PlayerServer as the handler
-	//Because it has a ServeHttp method - same as the hanlder interface so it satisfies
 }
