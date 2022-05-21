@@ -7,8 +7,26 @@ import (
 	"testing"
 )
 
+//tests were failing because we weren't passing anything into our playerserver (needs a store)
+//so we create a fake store
+type FakePlayerStore struct {
+	scores map[string]int
+}
+
+func (s *FakePlayerStore) GetPlayerScore(name string) int {
+	score := s.scores[name]
+	return score
+}
+
 func TestGetPlayers(t *testing.T) {
-	server := &PlayerServer{} //create a new instance of our PlayerServer, then cal its method
+	//create our store
+	store := FakePlayerStore{scores: map[string]int{
+		"Pedro": 20,
+		"Floyd": 10,
+	}}
+
+	//create our playerserver
+	server := &PlayerServer{&store}
 
 	t.Run("return Pedro's score", func(t *testing.T) {
 		request := newGetScoreRequest("Pedro")
