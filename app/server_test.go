@@ -1,4 +1,4 @@
-package httpserver
+package main
 
 import (
 	"fmt"
@@ -6,9 +6,6 @@ import (
 	"net/http/httptest"
 	"testing"
 )
-
-//Now we want to check that when we make the Post /players/{name},
-//that our PlayerStore somehow records the win
 
 type FakePlayerStore struct {
 	scores   map[string]int
