@@ -8,8 +8,8 @@ import (
 
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	//creating the 2 components we are trying to integrate with
-	store := InMemoryPlayerStore{}
-	server := PlayerServer{Store: &store}
+	store := NewInMemoryPlayerStore()
+	server := PlayerServer{Store: store}
 
 	player := "Pedro"
 
