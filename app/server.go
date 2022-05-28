@@ -38,18 +38,21 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 }
 
 func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
-	//endpoint currently does not return a body, so it cannot be parsed into JSON, so :
+	json.NewEncoder(w).Encode(ps.getLeagueTable())
+
+	w.WriteHeader(http.StatusOK)
+}
+
+func (ps PlayerServer) getLeagueTable() []Player {
 	leagueTable := []Player{
 		{
 			Name: "Jimbo",
 			Wins: 20,
 		},
 	}
-
-	json.NewEncoder(w).Encode(leagueTable)
-
-	w.WriteHeader(http.StatusOK)
+	return leagueTable
 }
+
 func (ps PlayerServer) playerHandler(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	switch r.Method {
