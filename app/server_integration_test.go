@@ -13,21 +13,32 @@ func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 
 	player := "Pedro"
 
-	//We then fire off 3 requests to record 3 wins for player.
-	//We're not too concerned about the status codes in this test as it's not relevant to whether they are integrating well.
-
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
 
-	//The next response we do care about (so we store a variable response)
-	//because we are going to try and get the player's score.
+	t.Run("get score", func(t *testing.T) {
+		response := httptest.NewRecorder()
 
-	response := httptest.NewRecorder()
+		server.ServeHTTP(response, newGetScoreRequest(player))
 
-	server.ServeHTTP(response, newGetScoreRequest(player))
+		assertStatus(t, response.Code, http.StatusOK)
+		assertResponseBody(t, response.Body.String(), "3")
+	})
+	t.Run("get league", func(t *testing.T) {
+		response := httptest.NewRecorder()
+		server.ServeHTTP(response, newLeagueRequest())
+		assertStatus(t, response.Code, http.StatusOK)
 
-	assertStatus(t, response.Code, http.StatusOK)
-	assertResponseBody(t, response.Body.String(), "3")
+		got := getLeagueFromResponse(t, response.Body)
+		want := []Player{
+			{"Pedro", 3},
+		}
+		assertLeague(t, got, want)
+
+	})
+	//now we need to focus on InMemoryPlayerStore
+	//quickest way for us to get some confidence is to add to our integration test,
+	//we can hit the new endpoint and check we get back the correct response from /league.
 
 }
