@@ -30,6 +30,10 @@ func (s *FakePlayerStore) RecordWin(name string) {
 	s.winCalls = append(s.winCalls, name)
 }
 
+func (s *FakePlayerStore) GetLeague() []Player {
+	return s.league
+}
+
 func TestGetPlayers(t *testing.T) {
 	//create our store
 	store := FakePlayerStore{scores: map[string]int{
