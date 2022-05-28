@@ -9,7 +9,7 @@ import (
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
 	//creating the 2 components we are trying to integrate with
 	store := NewInMemoryPlayerStore()
-	server := PlayerServer{Store: store}
+	server := NewPlayerServer(store)
 
 	player := "Pedro"
 

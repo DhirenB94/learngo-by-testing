@@ -29,7 +29,7 @@ func TestGetPlayers(t *testing.T) {
 	}}
 
 	//create our playerserver
-	server := &PlayerServer{&store}
+	server := NewPlayerServer(&store)
 
 	t.Run("return Pedro's score", func(t *testing.T) {
 		request := newGetScoreRequest("Pedro")
@@ -71,7 +71,7 @@ func TestStoreWins(t *testing.T) {
 		map[string]int{},
 		nil}
 
-	server := &PlayerServer{Store: &store}
+	server := NewPlayerServer(&store)
 
 	t.Run("it returns accepted on POST", func(t *testing.T) {
 		player := "Pedro"
@@ -94,7 +94,7 @@ func TestStoreWins(t *testing.T) {
 
 func TestLeague(t *testing.T) {
 	store := FakePlayerStore{}
-	server := &PlayerServer{Store: &store}
+	server := NewPlayerServer(&store)
 
 	t.Run("it returns 200 on /league", func(t *testing.T) {
 		req, _ := http.NewRequest(http.MethodGet, "/league", nil)
@@ -103,11 +103,6 @@ func TestLeague(t *testing.T) {
 		server.ServeHTTP(resp, req)
 
 		assertStatus(t, resp.Code, http.StatusOK)
-		//Our PlayerServer returns a 404 Not Found, as if we were trying to get the wins for an unknown player.
-		//Looking at how server.go implements ServeHTTP,
-		//we realize that it always assumes to be called with a URL pointing to a specific player
-		//player := strings.TrimPrefix(r.URL.Path, "/players/")
-		// we need to deal with different request paths ---> ServeMux
 	})
 }
 
