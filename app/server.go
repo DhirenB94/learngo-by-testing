@@ -7,9 +7,7 @@ import (
 	"strings"
 )
 
-//We know the data is in our FakePlayerStore
-//and we've abstracted that away into an interface PlayerStore.
-//We need to update this so anyone passing us in a PlayerStore can provide us with the data for leagues.
+const jsonContentType = "application/json"
 
 type PlayerStore interface {
 	GetPlayerScore(name string) int
@@ -42,11 +40,8 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 	return ps
 }
 
-//Now we can update our handler code to call that rather than returning a hard-coded list.
-//Delete our method getLeagueTable() and then update leagueHandler to call GetLeague().
-
 func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("content-type", "application/json")
+	w.Header().Set("content-type", jsonContentType)
 	json.NewEncoder(w).Encode(ps.Store.GetLeague())
 
 	w.WriteHeader(http.StatusOK)
