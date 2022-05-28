@@ -5,12 +5,20 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"reflect"
 	"testing"
 )
+
+//Next, we'll want to extend our test so that we can control exactly what data we want back.
+//We can update the test to assert that the league table contains some players that we will stub in our store.
+
+//Update FakePlayerStore to let it store a league, which is just a slice of Player.
+//We'll store our expected data in there.
 
 type FakePlayerStore struct {
 	scores   map[string]int
 	winCalls []string
+	league   []Player
 }
 
 func (s *FakePlayerStore) GetPlayerScore(name string) int {
@@ -70,6 +78,7 @@ func TestGetPlayers(t *testing.T) {
 func TestStoreWins(t *testing.T) {
 	store := FakePlayerStore{
 		map[string]int{},
+		nil,
 		nil}
 
 	server := NewPlayerServer(&store)
@@ -111,6 +120,45 @@ func TestLeague(t *testing.T) {
 		}
 
 		assertStatus(t, resp.Code, http.StatusOK)
+	})
+	t.Run("it returns the league table as JSON", func(t *testing.T) {
+		wantedLeague := []Player{
+			{
+				Name: "Joao",
+				Wins: 5,
+			},
+			{
+				Name: "Jose",
+				Wins: 7,
+			},
+			{
+				Name: "Antonio",
+				Wins: 9,
+			},
+		}
+
+		store := FakePlayerStore{
+			scores:   nil,
+			winCalls: nil,
+			league:   wantedLeague,
+		}
+		server := NewPlayerServer(&store)
+
+		req, _ := http.NewRequest(http.MethodGet, "/league", nil)
+		resp := httptest.NewRecorder()
+
+		server.ServeHTTP(resp, req)
+
+		var got []Player
+
+		err := json.NewDecoder(resp.Body).Decode(&got)
+		if err != nil {
+			t.Fatalf("Unable to parse response from server %q into slice of Player, '%v'", resp.Body, err)
+		}
+		assertStatus(t, resp.Code, http.StatusOK)
+		if !reflect.DeepEqual(got, wantedLeague) {
+			t.Errorf("got %v want %v", got, wantedLeague)
+		}
 	})
 }
 
