@@ -108,24 +108,6 @@ func TestStoreWins(t *testing.T) {
 }
 
 func TestLeague(t *testing.T) {
-	store := FakePlayerStore{}
-	server := NewPlayerServer(&store)
-
-	t.Run("it returns 200 on /league", func(t *testing.T) {
-		req, _ := http.NewRequest(http.MethodGet, "/league", nil)
-		resp := httptest.NewRecorder()
-
-		server.ServeHTTP(resp, req)
-
-		var got []Player
-
-		err := json.NewDecoder(resp.Body).Decode(&got)
-		if err != nil {
-			t.Fatalf("Unable to parse response from server %q into slice of Player, '%v'", resp.Body, err)
-		}
-
-		assertStatus(t, resp.Code, http.StatusOK)
-	})
 	t.Run("it returns the league table as JSON", func(t *testing.T) {
 		wantedLeague := []Player{
 			{
