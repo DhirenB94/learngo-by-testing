@@ -16,18 +16,10 @@ type PlayerServer struct {
 	http.Handler
 }
 
-//EMBEDDING
-//We changed the second property of PlayerServer, removing the named property 'router http.ServeMux' and replaced it with http.Handler; this is called embedding.
-//Go does not provide the typical, type-driven notion of subclassing, but it does have the ability to “borrow” pieces of an implementation by embedding types within a struct or interface.
-//What this means is that our PlayerServer now has all the methods that http.Handler has, which is just ServeHTTP.
-//To "fill in" the http.Handler we assign it to the router we create in NewPlayerServer.
-//We can do this because http.ServeMux has the method ServeHTTP.
-//This lets us remove our own ServeHTTP method, as we are already exposing one via the embedded type.
-
-//You must be careful with embedding types because you will expose all public methods and fields of the type you embed.
-//In our case, it is ok because we embedded just the interface that we wanted to expose (http.Handler).
-//If we had been lazy and embedded http.ServeMux instead (the concrete type) it would still work
-//but users of PlayerServer would be able to add new routes to our server because Handle(path, handler) would be public.
+type Player struct {
+	Name string
+	Wins int
+}
 
 func NewPlayerServer(store PlayerStore) *PlayerServer {
 	ps := new(PlayerServer)
