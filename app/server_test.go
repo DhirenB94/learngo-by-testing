@@ -92,6 +92,20 @@ func TestStoreWins(t *testing.T) {
 
 }
 
+func TestLeague(t *testing.T) {
+	store := FakePlayerStore{}
+	server := &PlayerServer{Store: &store}
+
+	t.Run("it returns 200 on /league", func(t *testing.T) {
+		req, _ := http.NewRequest(http.MethodGet, "/league", nil)
+		resp := httptest.NewRecorder()
+
+		server.ServeHTTP(resp, req)
+
+		assertStatus(t, resp.Code, http.StatusOK)
+	})
+}
+
 func newPostWinRequest(name string) *http.Request {
 	req, _ := http.NewRequest(http.MethodPost, fmt.Sprintf("/players/%s", name), nil)
 	return req
