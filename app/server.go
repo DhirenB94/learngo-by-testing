@@ -11,32 +11,24 @@ type PlayerStore interface {
 	RecordWin(name string)
 }
 
-//It's quite odd (and inefficient) to be setting up a router as a request comes in and then calling it.
-//What we ideally want to do is have some kind of NewPlayerServer function which will take our dependencies and do the one-time setup of creating the router.
-//Each request can then just use that one instance of the router
-
-//PlayerServer now needs to store a router
-
 type PlayerServer struct {
-	Store  PlayerStore
-	router *http.ServeMux
+	Store PlayerStore
+	http.Handler
 }
 
 func NewPlayerServer(store PlayerStore) *PlayerServer {
-	ps := &PlayerServer{
-		store,
-		http.NewServeMux(),
-	}
-	ps.router.Handle("/league", http.HandlerFunc(ps.leagueHandler))
-	ps.router.Handle("/players/", http.HandlerFunc(ps.playerHandler))
+	ps := new(PlayerServer)
+
+	ps.Store = store
+
+	router := http.NewServeMux()
+
+	router.Handle("/league", http.HandlerFunc(ps.leagueHandler))
+	router.Handle("/players/", http.HandlerFunc(ps.playerHandler))
+
+	ps.Handler = router
 
 	return ps
-}
-
-//We have moved the routing creation out of ServeHTTP and into our NewPlayerServer so this only has to be done once, not per request.
-
-func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ps.router.ServeHTTP(w, r)
 }
 
 func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
