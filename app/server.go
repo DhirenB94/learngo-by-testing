@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
@@ -37,6 +38,16 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 }
 
 func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+	//endpoint currently does not return a body, so it cannot be parsed into JSON, so :
+	leagueTable := []Player{
+		{
+			Name: "Jimbo",
+			Wins: 20,
+		},
+	}
+
+	json.NewEncoder(w).Encode(leagueTable)
+
 	w.WriteHeader(http.StatusOK)
 }
 func (ps PlayerServer) playerHandler(w http.ResponseWriter, r *http.Request) {
