@@ -46,6 +46,7 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 //Delete our method getLeagueTable() and then update leagueHandler to call GetLeague().
 
 func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", "application/json")
 	json.NewEncoder(w).Encode(ps.Store.GetLeague())
 
 	w.WriteHeader(http.StatusOK)
