@@ -7,9 +7,14 @@ import (
 	"strings"
 )
 
+//We know the data is in our FakePlayerStore
+//and we've abstracted that away into an interface PlayerStore.
+//We need to update this so anyone passing us in a PlayerStore can provide us with the data for leagues.
+
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
+	GetLeague() []Player
 }
 
 type PlayerServer struct {
@@ -37,20 +42,13 @@ func NewPlayerServer(store PlayerStore) *PlayerServer {
 	return ps
 }
 
+//Now we can update our handler code to call that rather than returning a hard-coded list.
+//Delete our method getLeagueTable() and then update leagueHandler to call GetLeague().
+
 func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(ps.getLeagueTable())
+	json.NewEncoder(w).Encode(ps.Store.GetLeague())
 
 	w.WriteHeader(http.StatusOK)
-}
-
-func (ps PlayerServer) getLeagueTable() []Player {
-	leagueTable := []Player{
-		{
-			Name: "Jimbo",
-			Wins: 20,
-		},
-	}
-	return leagueTable
 }
 
 func (ps PlayerServer) playerHandler(w http.ResponseWriter, r *http.Request) {
