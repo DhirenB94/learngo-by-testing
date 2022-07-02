@@ -41,7 +41,8 @@ func main() {
 func Countdown(out io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		fmt.Fprintln(out, i)
-		time.Sleep(1 * time.Second)
+		sleeper.Sleep()
+		//tests will now pass, because now we call the injected in dependency rather than time.sleep()
 	}
 	fmt.Fprintf(out, finalWord)
 }
