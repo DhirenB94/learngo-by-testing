@@ -19,5 +19,8 @@ func main() {
 }
 
 func Countdown(out io.Writer) {
-	fmt.Fprintf(out, "3")
+	for i := 3; i > 0; i-- {
+		fmt.Fprintln(out, i)
+	}
+	fmt.Fprintf(out, "Go!")
 }
