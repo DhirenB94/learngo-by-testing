@@ -18,6 +18,13 @@ import (
 const countdownStart = 3
 const finalWord = "Go!"
 
+//define our dependency as an interface.
+//This lets us then use a real Sleeper in main and a spy sleeper in our tests
+
+type Sleeper interface {
+	Sleep()
+}
+
 func main() {
 	Countdown(os.Stdout)
 }
