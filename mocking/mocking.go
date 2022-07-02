@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io"
+	"os"
 )
 
 //write a program which counts down from 3, printing each number on a new line (with a 1-second pause)
@@ -14,7 +15,7 @@ import (
 //In test we will send to bytes.Buffer so our tests can capture what data is being generated
 
 func main() {
-	//Countdown()
+	Countdown(os.Stdout)
 }
 
 func Countdown(out io.Writer) {
