@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
+	"io"
 )
 
 //write a program which counts down from 3, printing each number on a new line (with a 1-second pause)
@@ -17,6 +17,6 @@ func main() {
 	//Countdown()
 }
 
-func Countdown(out *bytes.Buffer) {
+func Countdown(out io.Writer) {
 	fmt.Fprintf(out, "3")
 }
