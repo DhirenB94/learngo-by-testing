@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
+	"time"
 )
 
 const sleep = "sleep"
@@ -22,6 +23,34 @@ func (s *SpyCountdownOperations) Write(p []byte) (n int, err error) {
 }
 
 //Our SpyCountdownOperations implements both io.Writer and Sleeper, recording every call into one slice.
+
+//configurable sleeper
+type SpyTime struct {
+	durationSlept time.Duration
+}
+
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
+
+func TestConfigurableSleeper(t *testing.T) {
+	sleepTime := 5 * time.Second
+	spyTime := &SpyTime{}
+
+	sleeper := ConfigurableSleeper{
+		duration: sleepTime,
+		sleep:    spyTime.Sleep,
+	}
+
+	sleeper.Sleep()
+
+	if spyTime.durationSlept != sleepTime {
+		t.Errorf("should have slept for %v but slept for %v", sleepTime, spyTime.durationSlept)
+	}
+
+	//error:
+	//sleeper.Sleep undefined (type ConfigurableSleeper has no field or method Sleep, but does have sleep)
+}
 
 func TestCountdown(t *testing.T) {
 
