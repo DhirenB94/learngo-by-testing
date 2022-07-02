@@ -1,24 +1,53 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
 )
 
-//We need to update PlayerServer's idea of what a PlayerStore is by changing the interface
-//if we're going to be able to call RecordWin
+const jsonContentType = "application/json"
 
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
+	GetLeague() []Player
 }
 
 type PlayerServer struct {
 	Store PlayerStore
+	http.Handler
 }
 
-func (ps *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+type Player struct {
+	Name string
+	Wins int
+}
+
+func NewPlayerServer(store PlayerStore) *PlayerServer {
+	ps := new(PlayerServer)
+
+	ps.Store = store
+
+	router := http.NewServeMux()
+
+	router.Handle("/league", http.HandlerFunc(ps.leagueHandler))
+	router.Handle("/players/", http.HandlerFunc(ps.playerHandler))
+
+	ps.Handler = router
+
+	return ps
+}
+
+func (ps PlayerServer) leagueHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("content-type", jsonContentType)
+	json.NewEncoder(w).Encode(ps.Store.GetLeague())
+
+	w.WriteHeader(http.StatusOK)
+}
+
+func (ps PlayerServer) playerHandler(w http.ResponseWriter, r *http.Request) {
 	player := strings.TrimPrefix(r.URL.Path, "/players/")
 	switch r.Method {
 	case http.MethodPost:
