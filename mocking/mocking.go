@@ -14,13 +14,16 @@ import (
 //In main we will send to os.Stdout so our users see the countdown printed to the terminal.
 //In test we will send to bytes.Buffer so our tests can capture what data is being generated
 
+const countdownStart = 3
+const finalWord = "Go!"
+
 func main() {
 	Countdown(os.Stdout)
 }
 
 func Countdown(out io.Writer) {
-	for i := 3; i > 0; i-- {
+	for i := countdownStart; i > 0; i-- {
 		fmt.Fprintln(out, i)
 	}
-	fmt.Fprintf(out, "Go!")
+	fmt.Fprintf(out, finalWord)
 }
