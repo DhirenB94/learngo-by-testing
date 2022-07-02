@@ -39,7 +39,7 @@ type ConfigurableSleeper struct {
 }
 
 func (cs *ConfigurableSleeper) Sleep() {
-
+	cs.sleep(cs.duration)
 }
 
 func main() {
