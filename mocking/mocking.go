@@ -25,8 +25,17 @@ type Sleeper interface {
 	Sleep()
 }
 
+//create a real sleeper that implements the interface we need and pass to func main
+
+type RealSleeper struct{}
+
+func (rs *RealSleeper) Sleep() {
+	time.Sleep(1 * time.Second)
+}
+
 func main() {
-	Countdown(os.Stdout)
+	sleeper := &RealSleeper{}
+	Countdown(os.Stdout, sleeper)
 }
 
 func Countdown(out io.Writer, sleeper Sleeper) {
