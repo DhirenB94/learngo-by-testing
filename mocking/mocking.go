@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"time"
 )
 
 //write a program which counts down from 3, printing each number on a new line (with a 1-second pause)
@@ -24,6 +25,7 @@ func main() {
 func Countdown(out io.Writer) {
 	for i := countdownStart; i > 0; i-- {
 		fmt.Fprintln(out, i)
+		time.Sleep(1 * time.Second)
 	}
 	fmt.Fprintf(out, finalWord)
 }
