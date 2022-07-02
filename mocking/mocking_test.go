@@ -21,3 +21,10 @@ Go!`
 	}
 
 }
+
+//Why do we need to mock?
+//our tests take 3 seconds to run every time - think about if the number was bigger thn 3
+//we have a dependency on sleep - need to extract to be able to control - mock it
+//if we can mock time.Sleep
+//we can use dependency injection to use it instead of a "real" time.Sleep
+//and then we can spy on the calls to make assertions on them.
